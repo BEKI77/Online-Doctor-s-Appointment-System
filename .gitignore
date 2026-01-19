@@ -1,0 +1,25 @@
+## LaTeX - Official gitignore objects
+*.aux
+*.fdb_latexmk
+*.fls
+*.gz
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+
+## Build directories
+build/
+
+## PDF output (optional - depends if you want to keep the final output in git)
+# *.pdf
+
+## Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store

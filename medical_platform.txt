@@ -1,0 +1,507 @@
+Abstract
+The increasing adoption of information and communication technologies offers new
+opportunities to improve healthcare service delivery, yet many healthcare facilities still rely on
+manual appointment scheduling methods, leading to long waiting times, scheduling conflicts,
+inefficient record keeping, and limited communication between patients and healthcare
+providers. To address these challenges, this project proposes the design and future
+implementation of a web-based online doctor’s appointment system that will streamline
+interactions among patients, doctors, and administrative staff. The system will allow patients to
+register online, manage their profiles, view available medical services, and schedule
+appointments at convenient times, while also supporting virtual consultations through Google
+Meet integration for remote access. It will operate using three main user roles: patient, doctor,
+and admin enabling doctors to manage their availability and appointments and administrators to
+oversee appointment approvals and system management. Developed with Next.js and TypeScript
+for the frontend, Node.js and Express.js for the backend, and PostgreSQL for secure data storage,
+the system will implement authentication via JSON Web Tokens and secure integration with
+Google services through OAuth 2.0. With a focus on usability, security, scalability, and
+performance, the system is expected to reduce administrative workload, enhance patient
+engagement, and improve communication between patients and healthcare providers, ultimately
+contributing to more efficient healthcare service delivery in the future.
+
+1. Introduction
+Healthcare services in many areas face challenges such as limited infrastructure, high patient
+demand, and reliance on manual appointment scheduling and record-keeping. These traditional
+methods often lead to long waiting times, scheduling conflicts, incomplete records, and poor
+communication between patients and healthcare providers. The lack of digital solutions further
+limits access and efficiency, particularly in remote or underserved areas.
+This project proposes the design and future implementation of a web-based online doctor’s
+appointment system. The system will allow patients to register online, manage profiles, view
+services, and schedule appointments. It will support virtual consultations through Google Meet
+and include role-based access for patients, doctors, and administrators. The system aims to
+reduce administrative workload, improve communication, and provide more efficient and
+accessible healthcare services.
+
+1.1 Background
+Healthcare systems in many developing countries face challenges such as limited infrastructure,
+high patient demand, and inefficient administrative processes. In Ethiopia, these challenges are
+particularly evident, as many healthcare facilities still rely on manual methods for managing
+patient appointments and medical records, including paper-based registration and phone calls.
+Such traditional approaches often lead to long waiting times, scheduling conflicts, incomplete or
+lost records, and poor communication between patients and healthcare providers. The limited use
+of digital technologies further restricts the accessibility and quality of healthcare, especially for
+patients in remote or underserved areas.
+The growing need for efficient, timely, and well-organized healthcare services highlights the
+potential of digital solutions to address these challenges. Web-based appointment systems can
+streamline patient registration, scheduling, and record management while improving
+communication between patients and healthcare providers. By reducing administrative workload,
+
+minimizing errors, and providing timely notifications, such systems can enhance patient
+satisfaction and overall service delivery, even in resource-limited settings.
+This project proposes the design and future implementation of a web-based online doctor’s
+appointment system tailored to the Ethiopian healthcare context. The system will enable patients
+to register online, manage their personal profiles, view available medical services, and schedule
+appointments efficiently. It will also support virtual consultations through Google Meet
+integration, improving access for patients who cannot easily visit healthcare facilities. By
+implementing role-based access for patients, doctors, and administrators, the system aims to
+enhance appointment management, streamline communication, and contribute to a more
+organized, accessible, and efficient healthcare service delivery in Ethiopia.
+
+1.2 Statement of the Problem
+Despite the critical role of healthcare services, many facilities continue to rely on manual and
+paper-based processes for patient registration, appointment scheduling, and record management.
+These traditional methods are often slow, inefficient, and prone to human error, resulting in long
+waiting times, missed or overlapping appointments, and incomplete patient records. Patients
+frequently face difficulties in accessing information about available services or doctors, while
+healthcare staff spend considerable time on administrative tasks that could otherwise be devoted
+to patient care.
+Additionally, the lack of a centralized digital system makes it difficult to coordinate schedules,
+track patient history, and provide timely notifications or reminders for upcoming consultations.
+This gap not only affects the efficiency of healthcare providers but also reduces patient
+satisfaction and engagement, creating challenges for maintaining quality care. The growing
+demand for healthcare services further exacerbates these issues, making manual systems
+increasingly inadequate to meet the needs of both patients and providers.
+Therefore, there is a pressing need for a reliable, user-friendly, and accessible digital system that
+can streamline appointment management, improve communication between patients and
+
+healthcare staff, and reduce administrative workload. Such a system would allow patients to
+book and manage appointments conveniently, while enabling healthcare providers to monitor
+schedules, track patient history, and offer timely services more effectively. Implementing a
+web-based solution with virtual consultation capabilities and role-based access would address
+these challenges, improving overall healthcare service delivery and patient experience.
+
+1.3 Objectives of the Project
+1.3.1 General Objective
+The general objective of this project is to design and implement a web-based online doctor’s
+appointment system that improves the efficiency, accessibility, and quality of healthcare services
+by streamlining patient registration, appointment scheduling, and communication between
+patients and healthcare providers.
+
+1.3.2 Specific Objectives
+The specific objectives of the project include:
+➢​ To develop an online platform that allows patients to register, manage their profiles, and
+schedule appointments conveniently.​
+➢​ To implement role-based access for patients, doctors, and administrators to ensure secure
+and organized management of appointments and patient data.​
+➢​ To integrate virtual consultation support through Google Meet to facilitate remote
+healthcare services.​
+➢​ To provide automated notifications and reminders for upcoming appointments and
+follow-ups.​
+
+➢​ To display clear information about medical services and fees, helping patients make
+informed decisions.​
+➢​ To reduce administrative workload for healthcare staff by providing an efficient digital
+system for managing appointments and patient records.
+
+1.4 Purpose of the Project
+The purpose of this project is to provide a digital solution that simplifies and improves the
+management of doctor appointments. By implementing a web-based system, patients will have a
+convenient way to register, schedule, and track their appointments, while healthcare providers
+will be able to manage schedules, access patient information, and communicate more effectively.
+The system also aims to support virtual consultations, reducing the need for physical visits and
+improving access to healthcare services. Overall, the project seeks to enhance the efficiency,
+accuracy, and quality of healthcare delivery, benefiting both patients and healthcare staff.
+
+1.5 Scope of the Project
+The scope of this project focuses on the development and future implementation of a web-based
+online doctor’s appointment system. The main aspects included in the project are:
+➢​ Patient Management​
+○​ Registration of new patients with personal, contact, and basic medical
+information.​
+○​ Profile management, allowing patients to update their information and view
+appointment history.​
+
+○​ Online appointment scheduling with the ability to select services, doctors, dates,
+and times.​
+○​ Access to virtual consultation links through Google Meet for remote
+appointments.​
+○​ Receiving notifications and reminders for upcoming appointments and
+follow-ups.​
+○​ Providing feedback on services and consultations.​
+➢​ Doctor Management​
+○​ Viewing scheduled appointments and patient information related to assigned
+consultations.​
+○​ Managing availability by setting working hours and available time slots for
+appointments.​
+○​ Accessing virtual consultation links for online sessions.​
+○​ Monitoring patient attendance and consultation history for better follow-up.​
+➢​ Administrator Management​
+○​ Approving, rejecting, or rescheduling appointment requests.​
+○​ Managing patient and doctor records within the system.​
+○​ Overseeing system operation, ensuring smooth scheduling and communication.​
+
+○​ Managing notifications and reminders to keep patients and doctors informed.​
+➢​ System Features and Limitations​
+○​ Support for role-based access control to ensure secure and organized operations.​
+○​ Display of service fees and supported payment methods without direct transaction
+processing.​
+○​ Integration with Google Meet for virtual appointments.​
+○​ Focused on appointment management; does not include treatment or direct
+payment processing modules.​
+○​ Designed with usability, security, scalability, and performance in mind to handle
+multiple concurrent users.​
+➢​ Operational Scope​
+○​ The system will be accessible via web browsers on desktops and mobile devices.​
+○​ It will provide a centralized platform for managing appointments and
+patient-doctor interactions.​
+○​ The system will improve communication between patients, doctors, and
+administrative staff while reducing administrative workload.
+
+1.6 Methodology
+The methodology outlines the approach and techniques that will be used for the design,
+development, and testing of the web-based online doctor’s appointment system. The
+methodology is divided into several sub-sections for clarity.
+
+1.6.1 Data Gathering Techniques
+➢​ Interviews: Discussions with healthcare staff and administrators to understand current
+challenges and requirements.​
+➢​ Observation: Reviewing current manual appointment systems to identify inefficiencies
+and workflow patterns.​
+➢​ Literature Review: Studying existing online appointment systems and related research
+to incorporate best practices and modern technologies.​
+
+1.6.2 Design Methodology
+➢​ Requirement Analysis: Identifying functional and non-functional requirements for
+patients, doctors, and administrators.​
+➢​ System Modeling: Developing use case diagrams, class diagrams, sequence diagrams,
+and activity diagrams to visualize system operations and interactions.​
+➢​ Interface Design: Creating user-friendly interfaces to ensure accessibility for patients
+with varying levels of technical literacy.​
+➢​ Role-Based Access Design: Defining access control for patients, doctors, and
+administrators to ensure secure and organized system operations.​
+
+1.6.3 Implementation Methodology
+➢​ Frontend: Next.js with TypeScript for a responsive, fast, and secure user interface.​
+➢​ Backend: Node.js with Express.js for handling business logic, APIs, and Google Meet
+integration.​
+➢​ Database: PostgreSQL for reliable and consistent storage of patient records,
+appointments, and user data.​
+➢​ Authentication & Security: JSON Web Tokens (JWT) for secure login sessions, and
+OAuth 2.0 for integration with Google services.​
+➢​ System Documentation: Comprehensive documentation will be maintained to guide
+users, administrators, and future developers.​
+
+1.6.4 Testing Methodology
+➢​ Unit Testing: Testing individual components of the system for correct functionality.​
+➢​ Integration Testing: Ensuring that different modules (frontend, backend, database) work
+together as expected.​
+➢​ System Testing: Conducted in two phases:​
+○​ Alpha Testing: Internal testing by the development team to identify and fix initial
+bugs.​
+○​ Beta Testing: Limited release to actual users (patients and staff) to gather
+feedback and identify issues in a real-world scenario.​
+
+1.6.5 Hardware and Software
+➢​ Hardware: Standard desktops or laptops with internet connectivity, capable of running
+modern web browsers.​
+➢​ Software:​
+○​ Frontend: Next.js (TypeScript)​
+○​ Backend: Node.js, Express.js​
+○​ Database: PostgreSQL​
+○​ Authentication: JWT and OAuth 2.0​
+○​ API: RESTful services
+
+2. Requirement Analysis Description
+2.1 Overview of the Existing System
+Currently, most healthcare facilities rely on manual processes to manage patient appointments
+and records. Patients typically register in person at the reception desk, where their personal and
+medical information is recorded in physical logbooks or spreadsheets. Appointment schedules
+are often maintained manually, creating challenges in coordinating patient visits, avoiding
+conflicts, and tracking history.
+Communication between patients and healthcare providers is mostly handled through phone calls
+or in-person inquiries, which can lead to missed information or delays. Doctors and
+
+administrative staff spend considerable time managing these manual processes, which reduces
+the time available for direct patient care.
+While this system has the advantage of being familiar to staff and low-cost, it is inefficient,
+error-prone, and difficult to scale, especially as patient volumes increase or when virtual
+consultations are needed. The lack of centralized digital management makes it difficult to track
+patient history, monitor appointments, and provide timely notifications or reminders.
+
+2.1.1 Activities of the System
+The current manual system for managing healthcare appointments involves several key activities
+performed by patients, doctors, and administrative staff. These activities include:
+➢​ Patient Registration​
+○​ Patients provide their personal and medical information at the reception.​
+○​ Administrative staff record this information manually in logbooks or
+spreadsheets.​
+➢​ Appointment Scheduling​
+○​ Patients request appointments in person or via phone.​
+○​ Staff manually check the doctor’s availability and assign time slots.​
+○​ Appointment details are written in physical appointment books or basic
+spreadsheets.​
+➢​ Consultation Management​
+○​ Doctors review appointment schedules prepared by staff.​
+
+○​ Consultation notes and patient records are maintained on paper.​
+○​ Follow-ups are recorded manually, requiring staff to track patient visits.​
+➢​ Communication and Notifications​
+○​ Appointment confirmations and reminders are given verbally or through phone
+calls.​
+○​ Patients may miss appointments due to lack of automated reminders.​
+➢​ Record Maintenance and Reporting​
+○​ Staff are responsible for maintaining patient records, appointment history, and
+doctor schedules.​
+○​ Generating reports or monitoring trends is time-consuming and prone to errors
+due to the manual process.
+○​
+
+2.1.2 Problems of the Existing System
+➢​ Long waiting times due to manual registration and scheduling processes.​
+➢​ Scheduling conflicts caused by the lack of a centralized system.​
+➢​ Incomplete, lost, or damaged patient records because of paper-based documentation.​
+➢​ Limited patient access to appointment information, making scheduling inconvenient.​
+
+➢​ Communication gaps, as reminders and notifications are handled verbally or via phone
+calls.​
+➢​ High administrative workload for staff managing appointments, records, and follow-ups.​
+➢​ Inefficient reporting and monitoring due to reliance on manual record-keeping.
+
+2.1.3 Weaknesses and Strengths
+Weaknesses
+➢​ The manual appointment system is time-consuming, requiring staff to handle registration,
+scheduling, and record-keeping physically, which slows down the overall workflow.​
+➢​ Scheduling conflicts are frequent because there is no centralized platform to coordinate
+patient appointments, often resulting in double bookings or missed appointments.​
+➢​ Patient records are prone to loss, damage, or incompleteness due to reliance on
+paper-based documentation, making it difficult to maintain accurate medical history.​
+➢​ Communication between patients and healthcare staff is limited and inefficient, as
+reminders, confirmations, and notifications are usually conveyed verbally or through
+phone calls.​
+➢​ Administrative staff are burdened with repetitive tasks, reducing the time available for
+direct patient care and increasing the likelihood of human error.​
+➢​ The system lacks scalability; as the number of patients increases, managing appointments
+and records becomes increasingly difficult and inefficient.​
+
+Strengths
+➢​ The current system is simple and familiar to staff, requiring minimal training to operate.​
+➢​ It has a low initial cost since it does not rely on digital infrastructure or complex
+technology.​
+➢​ Basic appointment management is achievable without depending on internet access or
+electronic devices.​
+➢​ Staff have direct control over records and schedules, which can provide a sense of
+oversight in small facilities.
+
+2.1.4 Business Rules
+1.​ Each patient must register with a unique identifier to ensure proper tracking of
+appointments and medical history.​
+
+This ensures that every patient can be uniquely recognized by the system. It prevents
+confusion between patients with similar names and allows the system to maintain
+accurate records of appointments, consultations, and medical history. Unique identifiers
+also make it easier for administrators to manage data and generate reports.​
+2.​ Appointments requested by patients must be approved or confirmed by the
+administrator before they are finalized.​
+This rule ensures that appointments are properly scheduled and coordinated with the
+doctor’s availability. Administrators can prevent double bookings or conflicts, ensuring
+that patients receive confirmed slots and that doctors’ schedules remain organized. It also
+allows staff to intervene in case of errors or special requests.​
+
+3.​ Administrators have full access to manage patient and doctor records, approve or
+reject appointments, and oversee overall system operations.​
+Administrators act as the system managers, ensuring smooth operations. They can
+modify records, handle scheduling issues, and monitor system activity. This centralized
+control helps maintain accuracy, resolve conflicts, and provide support to both patients
+and doctors when needed.​
+4.​ Virtual consultations are only accessible through automatically generated Google
+Meet links, which are provided to patients upon confirmation of their appointment.​
+To ensure security and convenience, virtual consultation links are generated
+automatically by the system and sent to patients after their appointment is confirmed.
+This prevents unauthorized access and simplifies the process for patients and doctors,
+allowing them to join consultations without manual link sharing.​
+5.​ Patients are responsible for providing accurate personal and contact information
+during registration to ensure proper scheduling and communication.​
+Accurate patient information is critical for effective appointment management. Correct
+contact details allow the system to send notifications, reminders, and virtual consultation
+links. Errors or omissions can lead to missed appointments, confusion, or communication
+breakdowns.​
+6.​ All appointments, records, and notifications must be stored securely to protect
+patient privacy and comply with data protection standards.​
+Sensitive data must be encrypted and stored safely to prevent unauthorized access.
+Secure storage ensures compliance with privacy regulations, protects patient
+confidentiality, and maintains trust between patients, doctors, and administrators.​
+7.​ System notifications and reminders must be sent automatically to patients and
+doctors to minimize missed appointments and improve communication.​
+Automated notifications reduce human error and ensure that all parties are informed
+about upcoming appointments. Reminders help patients attend consultations on time and
+
+allow doctors to prepare for scheduled visits, improving the overall efficiency of the
+healthcare service.
+
+2.2 Overview of the Proposed System
+The proposed system is a web-based online doctor’s appointment platform designed to overcome
+the limitations of the existing manual system. It provides a centralized, digital solution for
+managing patient registration, appointment scheduling, and communication between patients,
+doctors, and administrators. The system aims to increase efficiency, reduce administrative
+workload, and improve patient experience.
+
+➢​ Patient Registration and Profile Management​
+Patients can create accounts with personal, contact, and basic medical information. This
+ensures that patient records are properly maintained, easy to access, and can be used to
+schedule appointments and track medical history accurately.​
+➢​ Role-Based Access Control​
+The system distinguishes between patients, doctors, and administrators, giving each role
+specific permissions. This ensures security, prevents unauthorized access, and allows
+users to perform only the tasks relevant to their responsibilities.​
+➢​ Appointment Scheduling​
+Patients can view available services, select doctors, and book appointments online. The
+system checks for scheduling conflicts and prevents double bookings, making the process
+faster, more accurate, and convenient.​
+➢​ Virtual Consultation Support (Google Meet Integration)​
+Automatically generated Google Meet links are provided to patients and doctors for
+remote consultations. This allows patients to access medical services from home or
+
+distant locations, improving accessibility and reducing the need for physical visits.​
+➢​ Automated Notifications and Reminders​
+The system sends reminders to patients and doctors about upcoming appointments or
+follow-ups. This reduces missed appointments, keeps users informed, and improves
+overall communication.​
+➢​ Display of Service Fees and Payment Methods​
+Patients can view the costs of services and available payment options. Although the
+system does not handle direct transactions, this feature helps patients plan their visits and
+reduces confusion about fees.​
+➢​ Admin Dashboard​
+Administrators can approve or reject appointments, manage patient and doctor accounts,
+and monitor overall system activity. The dashboard provides centralized control to ensure
+smooth operation and maintain data accuracy.​
+➢​ Patient Portal and Feedback​
+Patients can access their appointment history, view records, and provide feedback on
+services. This feature promotes patient engagement and allows healthcare providers to
+improve service quality.
+
+2.2.2 Non-Functional Requirements
+
+➢​ Usability​
+The system must have a simple, intuitive, and user-friendly interface that can be easily
+used by patients with varying levels of technical literacy. Clear navigation,
+understandable instructions, and a responsive design are essential to encourage adoption
+and minimize errors during usage.​
+
+➢​ Security​
+Patient data and appointment records must be protected from unauthorized access. The
+system will implement password encryption, role-based access control, and secure
+session management. Additionally, sensitive information such as personal and medical
+data must comply with privacy standards to ensure confidentiality and trust.​
+➢​ Reliability and Availability​
+The system must be available 24/7 with minimal downtime. It should provide consistent
+performance under normal and peak usage, ensuring that patients can schedule
+appointments and access information at any time. Backup and recovery mechanisms
+should be in place to prevent data loss.​
+➢​ Scalability​
+The system should be capable of handling multiple concurrent users, including patients,
+doctors, and administrators. It must efficiently manage growing amounts of data and
+increasing numbers of users without performance degradation.​
+➢​ Performance​
+The system must respond quickly to user actions, such as logging in, scheduling
+appointments, or accessing virtual consultation links. Fast response times are critical for
+maintaining user satisfaction and preventing delays in healthcare service delivery.​
+➢​ Maintainability​
+The system should be designed in a modular and organized way, allowing developers to
+update, fix, or enhance features without affecting the overall system. Proper
+documentation and clear code structure will support maintainability.​
+➢​ Portability​
+The system must be accessible via different devices and web browsers, including
+desktops, laptops, and mobile devices. This ensures flexibility for patients and staff to use
+the system from various locations.
+
+2.2.3 System Requirements (Hardware and Software)
+The proposed online doctor’s appointment system requires both hardware and software
+components to function effectively and provide a seamless experience for patients, doctors, and
+administrators. On the hardware side, the system is designed to be practical and accessible,
+requiring only standard computers or laptops with internet access. Patients can access the system
+using personal computers, laptops, or mobile devices with modern web browsers. Healthcare
+staff and administrators will also use standard office computers to manage appointments, patient
+information, and system operations. The server, which hosts the application and database, should
+be capable of handling multiple simultaneous users and storing patient records securely, but no
+specialized or high-end hardware is necessary. This makes the system feasible for healthcare
+facilities of varying sizes, including small clinics with limited resources.
+On the software side, the system will use a layered web application architecture to ensure
+performance, security, and scalability. The frontend will be developed using Next.js with
+TypeScript, which allows the creation of a responsive, interactive, and user-friendly interface.
+This ensures that patients can easily navigate the system, book appointments, and access virtual
+consultations, while doctors and administrators can efficiently manage schedules and records.
+The backend will be implemented using Node.js with Express.js, providing a fast and efficient
+platform to handle application logic, API requests, and integration with external services such as
+Google Meet. PostgreSQL will serve as the relational database management system, ensuring
+reliable storage of patient records, appointment schedules, and system logs with high data
+integrity.
+Security is a key requirement of the system, and it will be ensured using JSON Web Tokens
+(JWT) for secure authentication, session management, and role-based access control. OAuth 2.0
+will be used for integrating Google Meet for virtual consultations, ensuring that only authorized
+users can access online appointments. RESTful APIs will facilitate smooth communication
+between the frontend and backend, enabling modular development and easy maintenance. The
+software stack has been chosen to ensure the system is scalable, secure, and capable of handling
+future enhancements without requiring major changes.
+
+2.3 Constraints and Assumptions
+The development and operation of the proposed online doctor’s appointment system are subject
+to several constraints and assumptions that define its scope and ensure realistic expectations. One
+of the main constraints is that the system will not handle direct online payment processing. While
+it can display service fees and available payment methods, all transactions must be completed
+outside the system, which simplifies development and reduces potential security risks. Another
+constraint is that virtual consultations rely on stable internet connectivity; both patients and
+doctors must have access to a reliable network to participate in online appointments.
+Additionally, the system is focused on appointment management, scheduling, and
+record-keeping, and does not include modules for diagnosing, prescribing medication, or other
+advanced medical functionalities.
+Several assumptions are made regarding system users and operations. It is assumed that patients
+have basic familiarity with using web browsers or mobile devices, allowing them to navigate the
+platform, register, and schedule appointments independently. Doctors and administrators are
+expected to maintain accurate schedules, update availability, and ensure that patient information
+is entered correctly. It is also assumed that patients will provide accurate personal and contact
+details during registration, enabling proper scheduling, notifications, and virtual consultation
+access. Furthermore, the system assumes that the healthcare facility provides adequate
+infrastructure, such as computers and internet access, to support the platform’s operations.
+These constraints and assumptions provide a framework for the development and deployment of
+the system, ensuring that it operates effectively within practical limitations while meeting the
+needs of patients, doctors, and administrators. By clearly defining these boundaries, the system
+can be designed, implemented, and maintained in a manner that is both efficient and sustainable.
+
+3. System Modeling
+System modeling provides a visual representation of how the online doctor’s appointment system
+operates. It helps in understanding interactions between users and the system, clarifying
+functional requirements, and guiding the design and implementation phases.
+
+3.1 Use Case Model
+The use case model represents the interactions between the system and its users (actors). It
+highlights the main functions of the system and shows how patients, doctors, and administrators
+interact with it.
+
+3.1.1 Actor Specification
+●​ Patient: Registers, schedules appointments, accesses virtual consultations, and provides
+feedback.​
+●​ Doctor: Manages availability, views scheduled appointments, and conducts
+consultations.​
+●​ Administrator: Approves or rejects appointments, manages patient and doctor records,
+and monitors system activity.
+
+3.1.2 Use Case Diagram
+●​ Patient: Register, schedule appointment, access virtual consultation, receive notifications,
+provide feedback.​
+●​ Doctor: Manage availability, view appointments, conduct consultations.​
+
+●​ Administrator: Approve/reject appointments, manage accounts, monitor system
+operations.
+
+Figure 1 overall use-case diagram
+
+Patient Use Case Diagram
+
+Figure 2 Patient Use Case Diagram
+
+Doctor Use Case Diagram
+
+Figure 3 doctor use case diagram
+
+Administrator Use Case Diagram
+
+
