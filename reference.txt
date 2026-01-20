@@ -1,0 +1,104 @@
+Reference Guide (Table of Contents)
+Preliminary Pages
+
+Acknowledgement
+
+Acronyms and Abbreviations
+
+Operational Definitions
+
+List of Figures
+
+Abstract
+
+Chapter One: Introduction
+
+Introduction
+1.1 Background
+1.2 Project Description
+1.3 Statement of the Problem
+1.4 Objectives of the Project
+    1.4.1 General Objective
+    1.4.2 Specific Objectives
+1.5 Feasibility Study
+    1.5.1 Technical Feasibility
+    1.5.2 Economic Feasibility
+    1.5.3 Schedule Feasibility
+    1.5.4 Operational Feasibility
+    1.5.5 Legal and Contractual Feasibility
+    1.5.6 Political Feasibility
+1.6 Significance of the Project
+1.7 Beneficiaries of the Project
+1.8 Scope of the Project
+1.9 Methodology
+    1.9.1 Data Gathering Techniques
+    1.9.2 Design Methodology
+    1.9.3 Implementation Methodology
+    1.9.4 Testing Methodology
+1.10 Project Team and Communication
+1.11 Development Tools and Technologies
+    1.11.1 Documentation and Modeling Tools
+    1.11.2 Development Tools
+    1.11.3 Collaboration Tools
+1.12 Testing and Deployment Environment
+1.13 Constraints and Assumptions
+    1.13.1 Assumptions
+    1.13.2 Constraints
+1.14 Risks
+1.15 Project Phases and Deliverables
+1.16 Work Breakdown Structure
+1.17 Project Schedule and Timeline
+
+Chapter Two: Business Area Analysis and Requirement Envisioning
+
+Business Area Analysis and Requirement Envisioning
+2.1 Introduction
+    2.1.1 Agile Analysis
+2.2 Players of the Existing System (Roles)
+2.3 Current Activities
+    2.3.1 Product Management
+    2.3.2 Stock Monitoring
+    2.3.3 Purchase Orders
+    2.3.4 Reporting
+    2.3.5 Communication
+2.4 Forms and Reports of the Existing System
+2.5 Problems of the Current System
+    2.5.1 Problems in Stock Entry
+    2.5.2 Problems in Stock Monitoring
+    2.5.3 Problems in Purchase Orders
+    2.5.4 Problems in Reporting
+    2.5.5 Problems in Communication
+2.6 Requirements Envisioning
+    2.6.1 Non-Functional Requirements
+    2.6.2 Functional Requirements
+    2.6.3 System Requirements
+2.7 Essential Use Cases
+    2.7.1 Actor Specification
+    2.7.2 Use Case Diagram
+2.8 Domain Modeling
+2.9 Architectural Envisioning
+    2.9.1 System Architecture
+    2.9.2 Deployment Diagram
+    2.9.3 Persistence Data Management
+    2.9.4 Access Control and Security
+
+Chapter Three: Design and Construction
+
+Design and Construction
+3.1 Actor Identification
+3.2 Business Rules
+3.3 Sequence Diagrams
+3.4 System Decomposition
+3.5 User Interface Design
+
+Chapter Four: Conclusion
+
+Conclusion
+
+Chapter Five: References
+
+References
+
+Chapter Six: Appendix
+
+Appendix

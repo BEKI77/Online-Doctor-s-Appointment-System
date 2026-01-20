@@ -6,11 +6,15 @@
 \usepackage{geometry}
 \usepackage{titlesec}
 \usepackage{setspace}
+\usepackage{float}
 
+\hypersetup{
+    hidelinks
+}
 \geometry{margin=1in}
 \onehalfspacing
 
-\title{Design and Development of an Online Doctor's Appointment System}
+\title{Design and Implementation of an Online Dermatology Platform with Integrated Online Pharmacy}
 \author{Medical Platform Project Team}
 \date{\today}
 
@@ -18,282 +22,756 @@
 
 \maketitle
 
+\pagenumbering{roman}
+
+\section*{Acknowledgement}
+First and foremost, we would like to express our deepest gratitude to our project advisor for their invaluable guidance, encouragement, and insightful feedback throughout the duration of this project. Their expertise and dedication have been instrumental in the successful completion of this work.
+
+We are also grateful to the faculty and staff of the department for providing a conducive environment for learning and research. Special thanks go to the healthcare professionals, including dermatologists and pharmacists, who provided their expertise and perspective during the requirement gathering and analysis phases.
+
+Finally, we would like to thank our family and friends for their unwavering support, patience, and motivation. Their belief in our abilities has been a constant source of strength.
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\section*{Acronyms and Abbreviations}
+\begin{itemize}
+    \item \textbf{API}: Application Programming Interface
+    \item \textbf{DB}: Database
+    \item \textbf{JWT}: JSON Web Token
+    \item \textbf{UI/UX}: User Interface / User Experience
+    \item \textbf{HTTP}: Hypertext Transfer Protocol
+\end{itemize}
+\addcontentsline{toc}{section}{Acronyms and Abbreviations}
+
+\section*{Operational Definitions}
+\begin{itemize}
+    \item \textbf{Pharmacist}: A professional responsible for managing and dispensing medicine.
+    \item \textbf{Dermatologist}: A doctor specializing in skin, hair, and nail health.
+    \item \textbf{Patient}: A user seeking dermatology consultation or medicine.
+\end{itemize}
+\addcontentsline{toc}{section}{Operational Definitions}
+
+\listoffigures
+\addcontentsline{toc}{section}{List of Figures}
+
+\newpage
 \section*{Abstract}
-The increasing adoption of information and communication technologies offers new opportunities to improve healthcare service delivery, yet many healthcare facilities still rely on manual appointment scheduling methods, leading to long waiting times, scheduling conflicts, inefficient record keeping, and limited communication between patients and healthcare providers. To address these challenges, this project proposes the design and future implementation of a web-based online doctor's appointment system that will streamline interactions among patients, doctors, and administrative staff. The system will allow patients to register online, manage their profiles, view available medical services, and schedule appointments at convenient times, while also supporting virtual consultations through Google Meet integration for remote access. It will operate using three main user roles: patient, doctor, and admin enabling doctors to manage their availability and appointments and administrators to oversee appointment approvals and system management. Developed with Next.js and TypeScript for the frontend, Node.js and Express.js for the backend, and PostgreSQL for secure data storage, the system will implement authentication via JSON Web Tokens and secure integration with Google services through OAuth 2.0. With a focus on usability, security, scalability, and performance, the system is expected to reduce administrative workload, enhance patient engagement, and improve communication between patients and healthcare providers, ultimately contributing to more efficient healthcare service delivery in the future.
+The integration of digital technology in healthcare has transformed how dermatology services and pharmacy operations are managed. This project proposes an "Online Dermatology Platform with an Integrated Online Pharmacy" to streamline patient care, from diagnosis to medicine procurement. The platform allows patients to register online, select specialized dermatology services, book appointments, and pay registration fees. Additionally, it features an online pharmacy module where patients can browse and purchase medicines, facilitating a complete healthcare cycle. Developed using Next.js, Node.js, and PostgreSQL, the system ensures secure data management and efficient communication between patients, dermatologists, pharmacists, and administrators. By automating registration, reminders, and payments, the system reduces administrative overhead and improves accessibility to especializados skincare and medication.
 
 \tableofcontents
 
+\newpage
+\pagenumbering{arabic}
+
 \chapter{Introduction}
 
-Healthcare services in many areas face challenges such as limited infrastructure, high patient demand, and reliance on manual appointment scheduling and record-keeping. These traditional methods often lead to long waiting times, scheduling conflicts, incomplete records, and poor communication between patients and healthcare providers. The lack of digital solutions further limits access and efficiency, particularly in remote or underserved areas.
+\section{Introduction}
+The healthcare sector is undergoing a profound transformation driven by the rapid advancement of digital technologies and increased internet penetration. Web-based healthcare platforms have emerged as powerful tools for improving service delivery, enhancing patient engagement, and reducing operational inefficiencies. These systems enable healthcare providers to move beyond traditional, paper-based workflows and adopt data-driven, patient-centered models of care.
 
-This project proposes the design and future implementation of a web-based online doctor's appointment system. The system will allow patients to register online, manage profiles, view services, and schedule appointments. It will support virtual consultations through Google Meet and include role-based access for patients, doctors, and administrators. The system aims to reduce administrative workload, improve communication, and provide more efficient and accessible healthcare services.
+Dermatology, as a visually intensive medical specialty, is particularly well-suited for digital transformation. Many dermatological conditions can be assessed through clinical images, patient-reported symptoms, and medical history without requiring immediate physical examination. At the same time, access to dermatologists remains limited in many developing regions, including Ethiopia, where specialist care is often centralized in urban areas.
 
-\section{Background}
-Healthcare systems in many developing countries face challenges such as limited infrastructure, high patient demand, and inefficient administrative processes. In Ethiopia, these challenges are particularly evident, as many healthcare facilities still rely on manual methods for managing patient appointments and medical records, including paper-based registration and phone calls. Such traditional approaches often lead to long waiting times, scheduling conflicts, incomplete or lost records, and poor communication between patients and healthcare providers. The limited use of digital technologies further restricts the accessibility and quality of healthcare, especially for patients in remote or underserved areas.
+This project focuses on the intersection of dermatology and pharmacy services by proposing a unified digital platform that integrates online dermatological consultation with an online pharmacy. The goal is to provide an end-to-end healthcare solution that supports patients from initial consultation through diagnosis, prescription, and medication procurement. By leveraging modern web technologies, the platform aims to improve accessibility, efficiency, transparency, and quality of dermatological care.
 
-The growing need for efficient, timely, and well-organized healthcare services highlights the potential of digital solutions to address these challenges. Web-based appointment systems can streamline patient registration, scheduling, and record management while improving communication between patients and healthcare providers. By reducing administrative workload, minimizing errors, and providing timely notifications, such systems can enhance patient satisfaction and overall service delivery, even in resource-limited settings.
 
-This project proposes the design and future implementation of a web-based online doctor's appointment system tailored to the Ethiopian healthcare context. The system will enable patients to register online, manage their personal profiles, view available medical services, and schedule appointments efficiently. It will also support virtual consultations through Google Meet integration, improving access for patients who cannot easily visit healthcare facilities. By implementing role-based access for patients, doctors, and administrators, the system aims to enhance appointment management, streamline communication, and contribute to a more organized, accessible, and efficient healthcare service delivery in Ethiopia.
 
-\section{Statement of the Problem}
-Despite the critical role of healthcare services, many facilities continue to rely on manual and paper-based processes for patient registration, appointment scheduling, and record management. These traditional methods are often slow, inefficient, and prone to human error, resulting in long waiting times, missed or overlapping appointments, and incomplete patient records. Patients frequently face difficulties in accessing information about available services or doctors, while healthcare staff spend considerable time on administrative tasks that could otherwise be devoted to patient care.
+\subsection{Background}
+Healthcare systems in developing countries face persistent challenges related to limited infrastructure, workforce shortages, and inefficient service delivery mechanisms. Specialized medical services such as dermatology are often unavailable outside major cities, forcing patients to travel long distances for consultation and treatment. This situation disproportionately affects rural populations, leading to delayed diagnosis, increased financial burden, and reduced treatment adherence.
 
-Additionally, the lack of a centralized digital system makes it difficult to coordinate schedules, track patient history, and provide timely notifications or reminders for upcoming consultations. This gap not only affects the efficiency of healthcare providers but also reduces patient satisfaction and engagement, creating challenges for maintaining quality care. The growing demand for healthcare services further exacerbates these issues, making manual systems increasingly inadequate to meet the needs of both patients and providers.
+In Ethiopia, dermatological services are typically delivered through hospital outpatient departments and private clinics, many of which rely on manual record-keeping and in-person consultations. After receiving a prescription, patients must independently locate pharmacies, often encountering issues such as medication unavailability, long queues, or counterfeit drugs. This fragmented approach to healthcare delivery results in inefficiencies, duplication of effort, and poor continuity of care.
 
-Therefore, there is a pressing need for a reliable, user-friendly, and accessible digital system that can streamline appointment management, improve communication between patients and healthcare staff, and reduce administrative workload.
+Recent advancements in telemedicine, cloud computing, and secure online payment systems provide an opportunity to address these challenges. Teledermatology enables remote consultations through image-based diagnosis and asynchronous communication, while online pharmacy systems streamline prescription fulfillment and inventory management. Integrating these components into a single platform can significantly improve the patient journey and overall healthcare outcomes.
 
-\section{Objectives of the Project}
-\subsection{General Objective}
-The general objective of this project is to design and implement a web-based online doctor's appointment system that improves the efficiency, accessibility, and quality of healthcare services by streamlining patient registration, appointment scheduling, and communication between patients and healthcare providers.
 
-\subsection{Specific Objectives}
-The specific objectives of the project include:
+
+\subsection{Project Description}
+The proposed system is a comprehensive web-based platform that integrates an online dermatology clinic with an online pharmacy. The platform is designed to support the entire patient care lifecycle, beginning with user registration and continuing through consultation, prescription issuance, payment processing, and medication acquisition.
+
+Patients can create secure accounts, upload dermatological images, describe symptoms, and book appointments with licensed dermatologists. Dermatologists can review patient submissions, provide diagnoses, conduct follow-up consultations, and issue digital prescriptions. These prescriptions are seamlessly linked to the integrated pharmacy module, allowing patients to view medication availability, pricing, and order status in real time.
+
+The system also includes administrative features such as appointment management, inventory tracking, payment reporting, and user role management. Built using Next.js, Node.js, and PostgreSQL, the platform emphasizes scalability, security, and performance while ensuring compliance with healthcare data protection standards.
+
+
+
+\subsection{Statement of the Problem}
+Traditional dermatology clinics and pharmacies often operate as independent entities, relying heavily on manual and paper-based processes. This lack of integration leads to multiple inefficiencies that negatively impact both patients and healthcare providers.
+
+Key problems include:
 \begin{itemize}
-    \item To develop an online platform that allows patients to register, manage their profiles, and schedule appointments conveniently.
-    \item To implement role-based access for patients, doctors, and administrators to ensure secure and organized management of appointments and patient data.
-    \item To integrate virtual consultation support through Google Meet to facilitate remote healthcare services.
-    \item To provide automated notifications and reminders for upcoming appointments and follow-ups.
-    \item To display clear information about medical services and fees, helping patients make informed decisions.
-    \item To reduce administrative workload for healthcare staff by providing an efficient digital system for managing appointments and patient records.
+    \item Difficulty for patients to locate and book appointments with qualified dermatologists, particularly in non-urban areas.
+    \item High administrative workload associated with manual patient registration, record keeping, and billing.
+    \item Absence of a centralized digital system for tracking prescriptions, medicine availability, and payments.
+    \item Ineffective communication mechanisms, resulting in missed appointments and delayed prescription fulfillment.
 \end{itemize}
 
-\section{Purpose of the Project}
-The purpose of this project is to provide a digital solution that simplifies and improves the management of doctor appointments. By implementing a web-based system, patients will have a convenient way to register, schedule, and track their appointments, while healthcare providers will be able to manage schedules, access patient information, and communicate more effectively. The system also aims to support virtual consultations, reducing the need for physical visits and improving access to healthcare services. Overall, the project seeks to enhance the efficiency, accuracy, and quality of healthcare delivery, benefiting both patients and healthcare staff.
+These challenges contribute to reduced service quality, increased operational costs, and limited scalability of dermatology services. Addressing these issues requires a unified digital solution that connects clinical and pharmaceutical workflows.
 
-\section{Scope of the Project}
-The scope of this project focuses on the development and future implementation of a web-based online doctor's appointment system. The main aspects included in the project are:
 
-\paragraph{Patient Management}
+
+\subsection{Objectives of the Project}
+
+\subsubsection{General Objective}
+The general objective of this project is to design and implement a secure, scalable, and user-friendly web-based platform that integrates online dermatology consultations with an online pharmacy to improve healthcare accessibility, efficiency, and service quality.
+
+\subsubsection{Specific Objectives}
 \begin{itemize}
-    \item Registration of new patients with personal, contact, and basic medical information.
-    \item Profile management, allowing patients to update their information and view appointment history.
-    \item Online appointment scheduling with the ability to select services, doctors, dates, and times.
-    \item Access to virtual consultation links through Google Meet for remote appointments.
-    \item Receiving notifications and reminders for upcoming appointments and follow-ups.
-    \item Providing feedback on services and consultations.
+    \item To enable patients to register, authenticate, and manage their profiles online.
+    \item To provide an appointment booking system for selecting dermatology services and available time slots.
+    \item To facilitate remote dermatological consultations through image uploads and digital communication.
+    \item To implement a secure payment gateway for consultation fees and medicine purchases.
+    \item To develop an online pharmacy module for medicine inventory management and sales.
+    \item To automate appointment reminders and prescription notifications.
 \end{itemize}
 
-\paragraph{Doctor Management}
+
+
+\subsection{Feasibility Study}
+
+\subsubsection{Technical Feasibility}
+The proposed system leverages a modern and proven technology stack. Next.js provides a fast, responsive, and SEO-friendly frontend, while Node.js and Express enable scalable backend services. PostgreSQL ensures reliable and consistent data storage. The system supports JWT-based authentication, encrypted data transmission, and integration with third-party services such as payment gateways and cloud storage.
+
+The availability of these technologies, along with extensive documentation and developer communities, makes the project technically feasible within the given constraints.
+
+\subsubsection{Economic Feasibility}
+The economic feasibility of the project is supported by relatively low development and deployment costs compared to traditional healthcare infrastructure investments. Cloud-based hosting reduces upfront hardware expenses, while open-source tools minimize licensing costs.
+
+Long-term benefits include:
 \begin{itemize}
-    \item Viewing scheduled appointments and patient information related to assigned consultations.
-    \item Managing availability by setting working hours and available time slots for appointments.
-    \item Accessing virtual consultation links for online sessions.
-    \item Monitoring patient attendance and consultation history for better follow-up.
+    \item Reduced administrative and operational expenses.
+    \item Increased revenue through online consultations and pharmacy sales.
+    \item Improved cost efficiency through automation and digital workflows.
 \end{itemize}
 
-\paragraph{Administrator Management}
+\subsubsection{Schedule Feasibility}
+The project is planned for completion within a 12-week timeframe using an Agile development approach. The use of iterative development and continuous feedback ensures timely delivery of core functionalities while allowing flexibility for refinement and optimization.
+
+\subsubsection{Operational Feasibility}
+The platform is designed to align with existing clinical and pharmacy workflows. Minimal training is required due to the intuitive user interface, making adoption feasible for healthcare professionals and administrative staff.
+
+\subsubsection{Legal and Contractual Feasibility}
+The system complies with Ethiopian health data regulations and follows international best practices for medical data privacy and security. Patient data is encrypted both in transit and at rest, and access is restricted based on user roles.
+
+\subsubsection{Political Feasibility}
+The project aligns with national digital health initiatives and supports government efforts to expand healthcare access through technology-enabled solutions.
+
+
+
+\subsection{Significance of the Project}
+This project is significant in addressing critical gaps in dermatology service delivery and pharmaceutical access. By integrating consultation and medication procurement, the platform reduces patient travel, minimizes delays, and improves treatment continuity.
+
+From an academic perspective, the project contributes to research on integrated digital healthcare systems. Practically, it provides a scalable model that can be adopted by clinics and healthcare institutions.
+
+
+
+\subsection{Beneficiaries of the Project}
 \begin{itemize}
-    \item Approving, rejecting, or rescheduling appointment requests.
-    \item Managing patient and doctor records within the system.
-    \item Overseeing system operation, ensuring smooth scheduling and communication.
-    \item Managing notifications and reminders to keep patients and doctors informed.
+    \item \textbf{Patients}: Enhanced access to dermatology services, reduced costs, and improved convenience.
+    \item \textbf{Dermatologists}: Efficient patient management and digital diagnostic tools.
+    \item \textbf{Pharmacists}: Improved inventory visibility and prescription accuracy.
+    \item \textbf{Administrators}: Better reporting, coordination, and operational control.
 \end{itemize}
 
-\paragraph{System Features and Limitations}
+
+
+\subsection{Scope of the Project}
+The project scope includes patient portals, appointment systems, payment processing, and pharmacy management. It focuses on digital service delivery while excluding physical logistics and insurance integration.
+
+
+
+\subsection{Methodology}
+The project adopts an Agile methodology supported by structured data gathering, iterative design, systematic implementation, and comprehensive testing to ensure reliability and usability.
+
+
+
+\subsection{Project Team and Communication}
+The multidisciplinary project team collaborates using modern communication tools to ensure transparency, accountability, and timely delivery of project milestones.
+
+
+
+\subsection{Development Tools and Technologies}
+A combination of industry-standard development, documentation, and collaboration tools is used to ensure code quality, maintainability, and efficient teamwork.
+
+
+
+\subsection{Testing and Deployment Environment}
+The system is tested in staging environments before deployment to production servers with redundancy, encryption, and backup mechanisms.
+
+
+
+\subsection{Constraints and Assumptions}
+The project assumes basic internet access and device availability while operating under strict timeline and bandwidth constraints.
+
+
+
+\subsection{Risks}
+Potential risks include data privacy breaches and internet instability, both of which are mitigated through encryption, access control, and system optimization.
+
+
+
+\subsection{Project Phases and Deliverables}
+The project follows a phased development approach, delivering incremental functionality and allowing for continuous evaluation and improvement.
+
+
+
+\subsection{Work Breakdown Structure}
+The WBS decomposes the project into manageable tasks covering setup, development, integration, testing, and deployment.
+
+
+
+\subsection{Project Schedule and Timeline}
+A detailed 12-week schedule ensures structured progress from design to deployment, with clearly defined milestones and deliverables.
+
+
+\chapter{Business Area Analysis and Requirement Envisioning}
+
+\section{Introduction}
+This chapter provides a thorough analysis of the business domain relevant to dermatology clinics and pharmacies, focusing on operational processes, stakeholder interactions, and existing limitations. The goal is to identify the gaps and inefficiencies in current systems and to envision a robust, web-based platform that integrates dermatology consultations with pharmacy services. This chapter will also define essential requirements for the system, both functional and non-functional, and present a conceptual domain model to guide system design.
+
+\subsection{Agile Analysis Approach}
+An Agile-based analysis methodology was adopted to ensure flexibility, rapid feedback incorporation, and stakeholder collaboration throughout the requirement gathering process. This approach allowed the project team to iteratively refine the system requirements while remaining adaptable to emerging insights. Key Agile analysis principles applied include:
+
 \begin{itemize}
-    \item Support for role-based access control to ensure secure and organized operations.
-    \item Display of service fees and supported payment methods without direct transaction processing.
-    \item Integration with Google Meet for virtual appointments.
-    \item Focused on appointment management; does not include treatment or direct payment processing modules.
-    \item Designed with usability, security, scalability, and performance in mind to handle multiple concurrent users.
+    \item \textbf{Incremental Requirement Gathering:} Capturing high-priority features first (e.g., patient registration, appointment booking, prescription handling) and expanding based on iterative feedback.
+    \item \textbf{Stakeholder Collaboration:} Continuous interaction with dermatologists, pharmacists, and patients to validate assumptions and refine workflows.
+    \item \textbf{Adaptive Planning:} Adjusting requirements to accommodate legal, operational, and technical constraints discovered during early sprints.
+    \item \textbf{Prioritization of Value:} Features were ranked based on impact on patient satisfaction, operational efficiency, and business growth.
 \end{itemize}
 
-\paragraph{Operational Scope}
+\subsection{Stakeholder Analysis}
+A detailed understanding of stakeholders is critical for designing a system that addresses their needs effectively. Table \ref{tab:stakeholders} summarizes the primary stakeholders and their roles:
+
+\begin{table}[h]
+\centering
+\caption{Stakeholder Roles and Responsibilities}
+\label{tab:stakeholders}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Stakeholder} & \textbf{Responsibilities and Interests} \\ \hline
+Patient & Receives consultations, uploads medical images, books appointments, accesses prescriptions, pays fees, purchases medicines online. \\ \hline
+Dermatologist & Reviews patient medical history, diagnoses skin conditions, issues prescriptions, monitors patient progress. \\ \hline
+Pharmacist & Manages medicine inventory, verifies digital prescriptions, fulfills medicine orders, updates stock data. \\ \hline
+Receptionist & Schedules appointments, manages patient registration, communicates reminders, maintains administrative records. \\ \hline
+Administrator & Oversees system operations, monitors reports and analytics, manages user accounts, ensures compliance with legal requirements. \\ \hline
+IT Support & Maintains the platform, ensures uptime, implements security patches, assists users with technical issues. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Players of the Existing System (Roles)}
+The existing healthcare system relies on several key actors:
+
 \begin{itemize}
-    \item The system will be accessible via web browsers on desktops and mobile devices.
-    \item It will provide a centralized platform for managing appointments and patient-doctor interactions.
-    \item The system will improve communication between patients, doctors, and administrative staff while reducing administrative workload.
+    \item \textbf{Patient:} Visits the clinic physically, retains paper prescriptions, and coordinates separately with pharmacies.
+    \item \textbf{Receptionist:} Manages manual registration, appointment scheduling, and paperwork.
+    \item \textbf{Dermatologist:} Conducts consultations, records patient history manually, and issues handwritten prescriptions.
+    \item \textbf{Pharmacist:} Dispenses medicines based on manual prescriptions and maintains stock records through notebooks or spreadsheets.
 \end{itemize}
 
-\section{Methodology}
-The methodology outlines the approach and techniques that will be used for the design, development, and testing of the web-based online doctor's appointment system.
+\subsection{Current Activities and Workflow Analysis}
+Current workflows are largely manual and fragmented, leading to inefficiencies:
 
-\subsection{Data Gathering Techniques}
+\subsubsection{Patient Registration and Consultation}
+Patients fill out physical forms during clinic visits. The receptionist records details in ledger books, which may result in:
 \begin{itemize}
-    \item \textbf{Interviews:} Discussions with healthcare staff and administrators to understand current challenges and requirements.
-    \item \textbf{Observation:} Reviewing current manual appointment systems to identify inefficiencies and workflow patterns.
-    \item \textbf{Literature Review:} Studying existing online appointment systems and related research to incorporate best practices and modern technologies.
+    \item Lost or incomplete patient data.
+    \item Time-consuming retrieval of historical patient records.
 \end{itemize}
 
-\subsection{Design Methodology}
+\subsubsection{Product Management and Stock Monitoring}
+Pharmacists manually record inventory and visually inspect stock levels. Limitations include:
 \begin{itemize}
-    \item \textbf{Requirement Analysis:} Identifying functional and non-functional requirements for patients, doctors, and administrators.
-    \item \textbf{System Modeling:} Developing use case diagrams, class diagrams, sequence diagrams, and activity diagrams.
-    \item \textbf{Interface Design:} Creating user-friendly interfaces to ensure accessibility for patients.
-    \item \textbf{Role-Based Access Design:} Defining access control for patients, doctors, and administrators.
+    \item Difficulty in tracking expiration dates.
+    \item No automated alerts for low stock levels.
+    \item Increased risk of stockouts or selling expired medicine.
 \end{itemize}
 
-\subsection{Implementation Methodology}
+\subsubsection{Purchase Orders and Replenishment}
+Purchase orders are communicated through phone calls or supplier visits. This leads to:
 \begin{itemize}
-    \item \textbf{Frontend:} Next.js with TypeScript for a responsive, fast, and secure user interface.
-    \item \textbf{Backend:} Node.js with Express.js for handling business logic, APIs, and Google Meet integration.
-    \item \textbf{Database:} PostgreSQL for reliable and consistent storage of patient records.
-    \item \textbf{Authentication \& Security:} JSON Web Tokens (JWT) for secure login sessions, and OAuth 2.0 for integration with Google services.
+    \item Delays in procurement.
+    \item Inefficient record-keeping of order history.
+    \item Lack of accountability for suppliers.
 \end{itemize}
 
-\subsection{Testing Methodology}
+\subsubsection{Reporting and Communication}
+Reports are handwritten, and communication relies on phone calls or verbal instructions:
 \begin{itemize}
-    \item \textbf{Unit Testing:} Testing individual components for correct functionality.
-    \item \textbf{Integration Testing:} Ensuring that different modules work together as expected.
-    \item \textbf{System Testing:} Conducted in Alpha and Beta phases.
+    \item High potential for errors in financial and inventory reporting.
+    \item Missed appointments due to lack of automated reminders.
+    \item Delayed communication with patients regarding prescriptions or test results.
 \end{itemize}
 
-\chapter{Requirement Analysis Description}
-
-\section{Overview of the Existing System}
-Currently, most healthcare facilities rely on manual processes to manage patient appointments and records. Patients typically register in person at the reception desk, where their personal and medical information is recorded in physical logbooks or spreadsheets. Appointment schedules are often maintained manually, creating challenges in coordinating patient visits, avoiding conflicts, and tracking history.
-
-\subsection{Activities of the System}
+\subsection{Forms and Reports of the Existing System}
+Current documentation relies heavily on paper, including:
 \begin{itemize}
-    \item \textbf{Patient Registration:} Patients provide personal and medical information at the reception.
-    \item \textbf{Appointment Scheduling:} Staff manually check doctor's availability and assign time slots.
-    \item \textbf{Consultation Management:} Doctors review schedules; notes are on paper.
-    \item \textbf{Communication and Notifications:} Confirmations are verbal or via phone.
-    \item \textbf{Record Maintenance and Reporting:} Manual maintenance is time-consuming and prone to errors.
+    \item Patient registration forms.
+    \item Prescription sheets.
+    \item Medicine stock cards and ledgers.
+    \item Daily/monthly sales summaries.
 \end{itemize}
 
-\subsection{Problems of the Existing System}
+\subsection{SWOT Analysis of the Existing System}
+\begin{table}[h]
+\centering
+\caption{SWOT Analysis of Current Dermatology and Pharmacy System}
+\begin{tabular}{|l|p{6cm}|p{6cm}|}
+\hline
+\textbf{Aspect} & \textbf{Strengths} & \textbf{Weaknesses} \\ \hline
+Operational & Experienced staff and well-established clinic procedures & Manual workflows prone to errors, slow processing, lack of data integration \\ \hline
+Financial & Low technological investment & High long-term operational costs due to inefficiency \\ \hline
+Communication & Direct interaction with patients & No automated reminders, delayed communication, low patient satisfaction \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|p{6cm}|p{6cm}|}
+\hline
+\textbf{Aspect} & \textbf{Opportunities} & \textbf{Threats} \\ \hline
+Technology & Adoption of integrated web-based solutions & Resistance to change, limited IT infrastructure in rural areas \\ \hline
+Market & Expansion through online consultations and pharmacy services & Competition from emerging telemedicine platforms \\ \hline
+Regulatory & Alignment with Ministry of Health digitalization initiatives & Compliance with data privacy and healthcare regulations \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Problems of the Current System}
+\subsubsection{Problems in Stock Entry and Inventory Management}
+High chance of human error in manual recording leads to:
 \begin{itemize}
-    \item Long waiting times due to manual registration.
-    \item Scheduling conflicts caused by lack of centralized system.
-    \item Incomplete, lost, or damaged patient records.
-    \item Limited patient access to appointment information.
-    \item Communication gaps; reminders handled verbally.
-    \item High administrative workload for staff.
-    \item Inefficient reporting and monitoring.
+    \item Duplicate or missing entries.
+    \item Mismanagement of batch and expiration data.
 \end{itemize}
 
-\subsection{Weaknesses and Strengths}
-\paragraph{Weaknesses}
+\subsubsection{Problems in Stock Monitoring}
+Manual inspections create challenges:
 \begin{itemize}
-    \item Time-consuming manual processes.
-    \item Frequent scheduling conflicts without centralized coordination.
-    \item Paper-based records prone to loss or damage.
-    \item Burdened administrative staff and risk of human error.
-    \item Lack of scalability for growing patient volumes.
+    \item Difficulty in maintaining accurate stock counts.
+    \item Lack of automatic notifications for expiring or low-stock items.
 \end{itemize}
 
-\paragraph{Strengths}
+\subsubsection{Problems in Purchase Orders and Replenishment}
+Manual processes result in:
 \begin{itemize}
-    \item Simple and familiar to staff; minimal training needed.
-    \item Low initial cost; no digital infrastructure required.
-    \item Operates independently of internet access or electronic devices.
-    \item Direct control over records for small facilities.
+    \item Delayed fulfillment.
+    \item Errors in order quantities.
+    \item Inefficient coordination with suppliers.
 \end{itemize}
 
-\section{Business Rules}
-\begin{enumerate}
-    \item Each patient must register with a unique identifier to ensure proper tracking.
-    \item Appointments requested by patients must be approved or confirmed by the administrator.
-    \item Administrators have full access to manage patient and doctor records.
-    \item Virtual consultations are only accessible through automatically generated Google Meet links.
-    \item Patients are responsible for providing accurate personal and contact information.
-    \item All appointments, records, and notifications must be stored securely.
-    \item System notifications and reminders must be sent automatically to patients and doctors.
-\end{enumerate}
-
-\section{Overview of the Proposed System}
-The proposed system is a web-based online doctor’s appointment platform designed to overcome the limitations of the existing manual system.
-
-\subsection{Key Features}
+\subsubsection{Problems in Reporting}
+Handwritten reports are:
 \begin{itemize}
-    \item \textbf{Patient Registration and Profile Management:} Accounts with medical history tracking.
-    \item \textbf{Role-Based Access Control:} Secure permissions for patients, doctors, and admins.
-    \item \textbf{Appointment Scheduling:} Online booking with conflict checks.
-    \item \textbf{Virtual Consultation Support:} Google Meet integration for remote access.
-    \item \textbf{Automated Notifications:} Reminders for upcoming appointments.
-    \item \textbf{Display of Fees:} Information on service costs and payment options.
-    \item \textbf{Admin Dashboard:} Centralized control for managing accounts and activity.
-    \item \textbf{Patient Portal and Feedback:} Access to history and engagement tools.
+    \item Time-consuming.
+    \item Error-prone.
+    \item Lack real-time insight into patient or pharmacy operations.
 \end{itemize}
 
+\subsubsection{Problems in Communication}
+\begin{itemize}
+    \item Missed appointment notifications.
+    \item Delayed follow-ups on prescriptions or lab results.
+    \item Low patient satisfaction and retention.
+\end{itemize}
+
+\section{Requirements Envisioning}
 \subsection{Non-Functional Requirements}
+\begin{itemize}
+    \item \textbf{Security:} Patient data encryption, secure login, multi-factor authentication.
+    \item \textbf{Performance:} Low-latency system response even under high concurrent usage.
+    \item \textbf{Scalability:} Ability to support additional clinics, users, and pharmacies.
+    \item \textbf{Usability:} Accessible and intuitive interfaces for non-technical users.
+    \item \textbf{Reliability:} High uptime with backup and recovery mechanisms.
+    \item \textbf{Maintainability:} Modular codebase allowing future feature extensions.
+\end{itemize}
+
+\subsection{Functional Requirements}
+\begin{itemize}
+    \item Patient profile management and registration.
+    \item Appointment scheduling with dermatologists.
+    \item Secure upload of medical images.
+    \item Digital consultation and prescription issuance.
+    \item Pharmacy inventory management and order fulfillment.
+    \item Online payment processing.
+    \item Automated notifications via SMS/email.
+    \item Reporting dashboards for administrators.
+\end{itemize}
+
+\subsection{System Requirements}
+\textbf{Hardware:} Modern computers, tablets, or smartphones for patients and staff; web servers for deployment.\\
+\textbf{Software:} Modern browsers, database servers, backend servers, and secure APIs.
+
+\section{Essential Use Cases}
+\subsection{Actor Specification}
 \begin{description}
-    \item[Usability:] Intuitive and user-friendly interface with responsive design.
-    \item[Security:] Protected data with encryption and role-based access.
-    \item[Reliability and Availability:] 24/7 availability with backup mechanisms.
-    \item[Scalability:] Capable of handling multiple concurrent users and growing data.
-    \item[Performance:] Fast response times for maintaining user satisfaction.
-    \item[Maintainability:] Modular and organized design with proper documentation.
-    \item[Portability:] Accessible via different devices and modern browsers.
+    \item[Patient:] Registers, uploads images, books appointments, makes payments, and orders medicines.
+    \item[Dermatologist:] Reviews patient history, diagnoses, conducts consultations, issues prescriptions.
+    \item[Pharmacist:] Manages inventory, verifies prescriptions, processes orders.
+    \item[Administrator:] Manages users, monitors operations, generates reports.
 \end{description}
 
-\section{System Requirements (Hardware and Software)}
-\paragraph{Hardware}
-\begin{itemize}
-    \item Standard computers or laptops with internet access.
-    \item Mobile devices with modern web browsers for patients.
-    \item Server capable of handling simultaneous users.
-\end{itemize}
-
-\paragraph{Software}
-\begin{itemize}
-    \item \textbf{Frontend:} Next.js with TypeScript.
-    \item \textbf{Backend:} Node.js with Express.js.
-    \item \textbf{Database:} PostgreSQL.
-    \item \textbf{Security:} JWT and OAuth 2.0.
-    \item \textbf{API:} RESTful services.
-\end{itemize}
-
-\section{Constraints and Assumptions}
-\paragraph{Constraints}
-\begin{itemize}
-    \item No direct online payment processing handling.
-    \item Reliance on stable internet connectivity for virtual consultations.
-    \item Scope limited to appointment management; no diagnosis or prescription modules.
-\end{itemize}
-
-\paragraph{Assumptions}
-\begin{itemize}
-    \item Users have basic familiarity with web browsers.
-    \item Staff will maintain accurate schedules and information.
-    \item Healthcare facilities provide adequate internet infrastructure.
-\end{itemize}
-
-\chapter{System Modeling}
-
-System modeling provides a visual representation of how the online doctor’s appointment system operates.
-
-\section{Use Case Model}
-The use case model represents the interactions between the system and its actors.
-
-\subsection{Actor Specification}
-\begin{itemize}
-    \item \textbf{Patient:} Registers, schedules appointments, and provides feedback.
-    \item \textbf{Doctor:} Manages availability and conducts consultations.
-    \item \textbf{Administrator:} Approves appointments and monitors system activity.
-\end{itemize}
-
-\subsection{Use Case Diagram}
-\begin{itemize}
-    \item \textbf{Patient:} Register, schedule appointment, access virtual consultation, receive notifications, provide feedback.
-    \item \textbf{Doctor:} Manage availability, view appointments, conduct consultations.
-    \item \textbf{Administrator:} Approve/reject appointments, manage accounts, monitor system operations.
-\end{itemize}
-
-\begin{figure}[h]
+\subsection{Use Case Diagrams}
+\begin{figure}[H]
     \centering
-    \fbox{Figure 1 placeholder: Overall Use-Case Diagram}
+    \includegraphics[width=\linewidth]{photo_2026-01-19_20-53-51.jpg}
     \caption{Overall Use-Case Diagram}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \fbox{Figure 2 placeholder: Patient Use Case Diagram}
+    \includegraphics[width=\linewidth]{Patient-module.jpg}
     \caption{Patient Use Case Diagram}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \fbox{Figure 3 placeholder: Doctor Use Case Diagram}
+    \includegraphics[width=\linewidth]{docter-module.jpg}
     \caption{Doctor Use Case Diagram}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \fbox{Figure 4 placeholder: Administrator Use Case Diagram}
+    \includegraphics[width=\linewidth]{administrator.jpg}
     \caption{Administrator Use Case Diagram}
 \end{figure}
+
+
+\section{Domain Modeling}
+Core entities include:
+\begin{itemize}
+    \item \textbf{PatientProfile}, \textbf{Appointment}, \textbf{MedicalRecord}, \textbf{Prescription}, \textbf{Medicine}, \textbf{Payment}.
+\end{itemize}
+Relationships and attributes are defined to ensure relational integrity and effective workflow mapping.
+
+\section{Architectural Envisioning}
+\subsection{System Architecture}
+A three-layer architecture is proposed:
+\begin{itemize}
+    \item Presentation Layer (UI/UX)
+    \item Application Layer (API/Business Logic)
+    \item Data Layer (Database)
+\end{itemize}
+
+\subsection{Deployment Diagram}
+\begin{itemize}
+    \item Web server delivers frontend assets.
+    \item Application server handles API requests and business logic.
+    \item Database server stores patient, prescription, and pharmacy data.
+\end{itemize}
+
+\subsection{Persistence Data Management}
+PostgreSQL is employed to ensure strong consistency, transactional integrity, and reliable relational storage.
+
+\subsection{Access Control and Security}
+\begin{itemize}
+    \item JWT-based authentication.
+    \item Role-based authorization.
+    \item HTTPS for secure data transmission.
+    \item Encrypted storage for sensitive patient records.
+\end{itemize}
+
+
+
+\chapter{Design and Construction}
+
+\section{Introduction}
+This chapter focuses on the detailed design and construction of the proposed integrated dermatology and pharmacy web platform. The chapter covers actor identification, business rules, system decomposition, dynamic behavior via sequence diagrams, data modeling, architectural design, user interface design, and security considerations. The aim is to provide a comprehensive blueprint for implementation, ensuring that the system is modular, scalable, and maintainable.
+
+The design approach follows standard software engineering principles, emphasizing **modularity, separation of concerns, usability, security, and extensibility**. The chapter also integrates UML diagrams to provide a visual understanding of system components, interactions, and data flows.
+
+\section{Actor Identification}
+Actors are individuals or systems that interact with the platform. The correct identification of actors is crucial to defining system boundaries and responsibilities.
+
+\begin{itemize}
+    \item \textbf{Patient:} End-user seeking dermatological consultation and medicine procurement. Responsibilities include registration, profile management, image upload, appointment booking, and online payment.
+    \item \textbf{Dermatologist:} Provides diagnosis, manages patient medical records, issues prescriptions, and monitors treatment progress.
+    \item \textbf{Pharmacist:} Manages inventory, verifies prescriptions, fulfills medicine orders, and updates stock levels.
+    \item \textbf{System Administrator:} Oversees user management, monitors system performance, ensures compliance, and generates operational reports.
+\end{itemize}
+
+Additional system actors include:
+\begin{itemize}
+    \item \textbf{Payment Gateway:} External system for processing card and mobile money payments.
+    \item \textbf{Notification Service:} Handles SMS/email reminders for appointments and order updates.
+\end{itemize}
+
+\section{Business Rules}
+Business rules define constraints and workflow policies for proper system operation. They ensure **consistency, security, and compliance**.
+
+\begin{itemize}
+    \item Appointments must be paid for before confirmation.
+    \item Medicine orders require a valid, authenticated prescription reference.
+    \item Appointment reminders are automatically sent 24 hours prior via SMS/email.
+    \item Stock levels must be updated in real time to prevent overbooking or over-selling of medicines.
+    \item Each patient profile must have a unique identifier, and all transactions must be logged for traceability.
+    \item Sensitive medical images must be encrypted at rest and in transit.
+\end{itemize}
+
+\section{Sequence Diagrams}
+Sequence diagrams illustrate **dynamic interactions between actors and the system** over time. They help identify critical workflows and dependencies.
+
+\subsection{Appointment Booking Flow}
+\begin{enumerate}
+    \item Patient selects desired dermatology service and preferred time slot.
+    \item System checks dermatologists’ availability in real-time.
+    \item Patient confirms the slot.
+    \item System redirects to the integrated payment gateway.
+    \item Payment is processed successfully.
+    \item System updates appointment status to "Confirmed" and triggers notification to both patient and dermatologist.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{appointment-seq.png}
+    \caption{Sequence Diagram: Appointment Booking Flow}
+\end{figure}
+
+\subsection{Pharmacy Order Flow}
+\begin{enumerate}
+    \item Patient uploads prescription or selects medicine from the digital prescription.
+    \item Pharmacist verifies prescription validity and stock availability.
+    \item Patient receives "Ready to Pay" alert.
+    \item Payment is processed through the gateway.
+    \item Order status is updated to "Processing," then "Ready for Pickup" or "In Transit."
+    \item Notification is sent to the patient.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{pharma-seq.png}
+    \caption{Sequence Diagram: Pharmacy Order Flow}
+\end{figure}
+
+\section{System Decomposition}
+The platform is decomposed into **functional modules**, each responsible for a distinct subset of features. This modularization promotes **maintainability, scalability, and testability**.
+
+\subsection{Patient Module}
+Handles:
+\begin{itemize}
+    \item User registration and authentication.
+    \item Profile management and update of personal and medical data.
+    \item Uploading images of skin conditions to cloud storage (AWS S3-compatible).
+    \item Viewing consultation history and digital prescriptions.
+    \item Tracking pharmacy orders.
+\end{itemize}
+
+\subsection{Clinical Module}
+Handles:
+\begin{itemize}
+    \item Virtual consultation interface using WebRTC/Google Meet APIs.
+    \item Viewing patient history and uploaded images.
+    \item Recording diagnoses and treatment notes in structured medical records.
+    \item Generating digital prescriptions with automated links to the pharmacy module.
+\end{itemize}
+
+\subsection{Pharmacy Inventory Module}
+Handles:
+\begin{itemize}
+    \item Medicine catalog management with stock levels, batch numbers, and expiration dates.
+    \item Barcode or QR-based inventory verification.
+    \item Automated low-stock alerts.
+    \item Linking prescriptions to medicine orders.
+\end{itemize}
+
+\subsection{Payment and Billing Module}
+Handles:
+\begin{itemize}
+    \item Integration with local mobile money providers and international card processors.
+    \item Transaction status management.
+    \item Generation of invoices and receipts.
+    \item Secure storage of financial records for auditing.
+\end{itemize}
+
+\section{Data Modeling}
+\subsection{Entity-Relationship (ER) Diagram}
+Key entities and relationships:
+\begin{itemize}
+    \item \textbf{PatientProfile} (1) --- (N) \textbf{Appointment}
+    \item \textbf{Appointment} (1) --- (1) \textbf{Prescription}
+    \item \textbf{Prescription} (1) --- (N) \textbf{MedicineOrder}
+    \item \textbf{Medicine} (1) --- (N) \textbf{MedicineOrder}
+    \item \textbf{Payment} (1) --- (1) \textbf{Transaction}
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{er-diagram.png}
+    \caption{Entity-Relationship Diagram of the System}
+\end{figure}
+
+\subsection{Class Diagrams}
+Class diagrams define system objects, their attributes, and relationships:
+\begin{itemize}
+    \item \textbf{PatientProfile:} patientID, name, email, phone, dateOfBirth, medicalHistory.
+    \item \textbf{Appointment:} appointmentID, patientID, dermatologistID, date, time, status.
+    \item \textbf{Prescription:} prescriptionID, appointmentID, medicineList, dosage, notes.
+    \item \textbf{Medicine:} medicineID, name, batchNumber, quantity, expiryDate, price.
+    \item \textbf{Payment:} paymentID, transactionID, amount, status, method.
+\end{itemize}
+
+\subsection{Component Diagram}
+The component diagram shows **high-level module interactions**:
+\begin{itemize}
+    \item Patient Module interacts with Clinical Module and Pharmacy Module.
+    \item Clinical Module interacts with Patient Module for data and with Pharmacy Module for prescriptions.
+    \item Payment Module interfaces with external Payment Gateway.
+    \item Notification Service interfaces with all modules for alerts.
+\end{itemize}
+
+\section{User Interface Design}
+\subsection{Design Principles}
+The platform adopts a **mobile-first responsive design**, ensuring usability across smartphones, tablets, and desktops.
+
+\begin{itemize}
+    \item \textbf{Accessibility:} Large interactive elements, screen reader compatibility, high-contrast color palettes.
+    \item \textbf{Consistency:} Uniform layouts and typography across modules.
+    \item \textbf{Feedback and Responsiveness:} Real-time alerts for booking confirmations, prescription availability, and payment status.
+    \item \textbf{Security Manifest:} Masking sensitive inputs (passwords, payment details) and warning prompts for incorrect data entry.
+\end{itemize}
+
+\subsection{Wireframe Overview}
+\begin{itemize}
+    \item \textbf{Patient Dashboard:} Upcoming appointments, recent prescriptions, order tracking.
+    \item \textbf{Dermatologist Dashboard:} Patient queue, image submissions, consultation notes.
+    \item \textbf{Pharmacy Dashboard:} Inventory alerts, prescription verification queue, order tracking.
+    \item \textbf{Admin Dashboard:} User management, analytics, system logs.
+\end{itemize}
+
+\section{Security Considerations}
+Security is central due to sensitive patient data and financial transactions:
+\begin{itemize}
+    \item HTTPS for all web communications.
+    \item JWT-based authentication for user sessions.
+    \item Role-based access control to enforce least privilege.
+    \item Encryption of all sensitive fields (medical history, prescriptions, payment data) in the database.
+    \item Regular audit logs for compliance and traceability.
+\end{itemize}
+
+\section{Design Rationale and Justification}
+The chosen design reflects:
+\begin{itemize}
+    \item \textbf{Modularity:} Each module can be developed and tested independently.
+    \item \textbf{Scalability:} Layered architecture and cloud storage allow future expansion.
+    \item \textbf{Maintainability:} Standardized coding practices and ORM usage (Prisma) facilitate updates.
+    \item \textbf{User-Centric Approach:} Dashboards and notifications designed for usability by medical and non-technical staff.
+    \item \textbf{Integration Capability:} Designed for future integration with AI-assisted diagnosis or national health systems.
+\end{itemize}
+
+
+\chapter{Conclusion and Recommendations}
+
+\section{Summary of Findings}
+The development of the "Online Dermatology Platform with Integrated Online Pharmacy" has demonstrated the feasibility and benefits of integrating specialized clinical services with pharmaceutical workflows. The platform effectively streamlines the patient journey from initial consultation to medication procurement, reducing the time and effort required for patients to access skincare services. By automating appointment scheduling, image management, and prescription handling, the system minimizes administrative errors and improves data accessibility for both patients and healthcare providers.
+
+\section{Achievement of Objectives}
+The project successfully met its predefined objectives:
+\begin{itemize}
+    \item \textbf{Online Registration and Profile Management}: Patients can securely create and manage their digital health profiles.
+    \item \textbf{Appointment Booking System}: A robust scheduling mechanism allows for selecting dermatology services and available slots.
+    \item \textbf{Remote Consultation Facilitation}: Secure medical image uploads enable dermatologists to perform asynchronous diagnoses.
+    \item \textbf{Secure Payment Gateway}: Integration with Chapa provides a reliable mechanism for consultation fees and medicine purchases.
+    \item \textbf{Pharmacy Module}: A dedicated inventory management system allows pharmacists to track stock and fulfill orders efficiently.
+\end{itemize}
+
+\section{Limitations}
+Despite the successful implementation, several limitations were identified:
+\begin{itemize}
+    \item \textbf{Internet Connectivity}: The system’s performance is highly dependent on stable internet access, which remains a challenge in certain regions of Ethiopia.
+    \item \textbf{Physical Medicine Delivery}: While the platform handles orders and payments, the actual physical delivery of medication still requires a separate logistical infrastructure.
+    \item \textbf{Integration with National HER}: The system currently operates as a standalone platform and is not yet integrated with national Electronic Health Record (EHR) systems.
+\end{itemize}
+
+\section{Recommendations and Future Work}
+To further enhance the platform, the following recommendations are proposed:
+\begin{itemize}
+    \item \textbf{AI-Assisted Diagnosis}: Incorporating machine learning models to assist dermatologists in identifying common skin conditions from uploaded images could improve diagnostic speed and accuracy.
+    \item \textbf{Mobile Application}: Developing a native mobile application (Android/iOS) would provide a more seamless experience and enable push notifications for reminders.
+    \item \textbf{Integration with Delivery Services}: Partnering with local delivery providers to automate the final leg of medicine procurement.
+    \item \textbf{Blockchain for Prescriptions}: Implementing blockchain technology to ensure the immutability and security of digital prescriptions, preventing unauthorized modifications.
+\end{itemize}
+
+\chapter{References}
+\begin{enumerate}
+    \item Warshaw, E. M., et al. (2020). \textit{Teledermatology: A Review and Update}. American Journal of Clinical Dermatology.
+    \item Ethiopia Ministry of Health. (2021). \textit{Information Revolution: Digital Health Blueprint (2021-2030)}.
+    \item Whited, J. D. (2016). \textit{Teledermatology: Care Models and Implementation}. Current Dermatology Reports.
+    \item Sagner, J. (2021). \textit{The Growth of E-Pharmacy in Emerging Markets}. Journal of Pharmaceutical Policy and Practice.
+    \item Chapa. (2023). \textit{Integration Guide for Ethiopian Fintech Solutions}.
+    \item American Academy of Dermatology (AAD). (2024). \textit{Teledermatology Practice Standards and Guidelines}.
+    \item World Health Organization (WHO). (2023). \textit{Digital Health Trends and Regulatory Frameworks for E-Pharmacy}.
+    \item Vercel. (2024). \textit{Next.js Documentation: Server Actions and App Router Architecture}.
+    \item PostgreSQL Global Development Group. (2023). \textit{PostgreSQL 16 Documentation: Relational Database Design and Optimization}.
+    \item Node.js Foundation. (2024). \textit{Node.js v20 LTS Documentation: Scalable Backend Services with Express}.
+    \item Kanthraj, G. R. (2025). \textit{Teledermatology: The New Era of Digitalization in Dermatology Care}. ResearchGate.
+    \item National Association of Boards of Pharmacy (NABP). (2024). \textit{Internet Pharmacy Standards and Patient Safety Protocols}.
+    \item Prisma Team. (2024). \textit{Prisma ORM documentation: Type-safe Database Access for TypeScript}.
+\end{enumerate}
+
+\chapter{Appendix}
+
+\section{Appendix A: User Interview Guide}
+The following questions were used during the requirement gathering phase with dermatologists and pharmacists:
+\begin{enumerate}
+    \item How do you currently manage patient records and appointments?
+    \item What are the biggest challenges in the manual prescription process?
+    \item How frequently do you encounter issues with medicine stock availability tracking?
+    \item What features would be most beneficial for a remote consultation platform?
+    \item What are your primary concerns regarding data security and patient privacy?
+\end{enumerate}
+
+\section{Appendix B: Database Schema (Detailed)}
+\textbf{Table: Users}
+\begin{itemize}
+    \item \texttt{id}: UUID (Primary Key)
+    \item \texttt{email}: String (Unique)
+    \item \texttt{password\_hash}: String
+    \item \texttt{role}: Enum (PATIENT, DOCTOR, PHARMACIST, ADMIN)
+    \item \texttt{created\_at}: Timestamp
+\end{itemize}
+
+\textbf{Table: Appointments}
+\begin{itemize}
+    \item \texttt{id}: UUID (Primary Key)
+    \item \texttt{patient\_id}: UUID (FK to Users)
+    \item \texttt{doctor\_id}: UUID (FK to Users)
+    \item \texttt{status}: Enum (PENDING, CONFIRMED, CANCELLED, COMPLETED)
+    \item \texttt{scheduled\_at}: Timestamp
+\end{itemize}
+
+\textbf{Table: Medicines}
+\begin{itemize}
+    \item \texttt{id}: UUID (Primary Key)
+    \item \texttt{name}: String
+    \item \texttt{stock\_quantity}: Integer
+    \item \texttt{price}: Decimal
+    \item \texttt{expiry\_date}: Date
+\end{itemize}
+
+\section{Appendix C: Project Timeline}
+The project was executed over a 12-week period following an Agile Scrum methodology:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|p{8cm}|}
+\hline
+\textbf{Phase} & \textbf{Duration} & \textbf{Key Deliverables} \\ \hline
+Planning & Weeks 1-2 & Project Charter, Feasibility Study, PRD \\ \hline
+Analysis & Weeks 3-4 & UML Diagrams, Wireframes, Database Schema \\ \hline
+Development & Weeks 5-9 & Frontend, Backend, API Integration, Payments \\ \hline
+Testing & Weeks 10-11 & Unit Testing, UAT, Security Audits \\ \hline
+Deployment & Week 12 & Production Launch, User Manual, Final Report \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Appendix D: User Manual Fragments}
+\textbf{How to Book an Appointment:}
+\begin{enumerate}
+    \item Login to the Patient Dashboard.
+    \item Click on "Book New Appointment".
+    \item Select a Dermatology Service and a preferred doctor.
+    \item Choose an available date and time slot.
+    \item Complete the registration payment via Chapa.
+\end{enumerate}
+
+\textbf{How to Fulfill a Prescription (Pharmacist):}
+\begin{enumerate}
+    \item Access the "Prescription Queue".
+    \item Select a pending prescription for verification.
+    \item Verify stock availability and batch numbers.
+    \item Mark the order as "Ready for Pickup" or "Out for Delivery".
+\end{enumerate}
 
 \end{document}
